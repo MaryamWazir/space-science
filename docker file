@@ -1,0 +1,24 @@
+# Base image (you can change this based on your application)
+FROM node:14
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application files, including unzipped contents
+COPY . .
+
+# Unzip and move the space-science contents to a specific directory
+# (This step is optional if you’ve already unzipped them outside Docker)
+# RUN unzip /usr/src/app/space-science.zip -d /usr/src/app/space-science/
+
+# Expose the port for your app
+EXPOSE 8080
+
+# Run the app
+CMD ["node", "app.js"]
